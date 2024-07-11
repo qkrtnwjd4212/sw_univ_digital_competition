@@ -1,3 +1,4 @@
+import 'package:docent/OAuth/interest_selection.dart';
 import 'package:flutter/material.dart';
 import 'OAuth/login_UI.dart';
 
@@ -12,7 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: LoginScreen(),
+      home: SelectionScreen(),
     );
   }
 }
