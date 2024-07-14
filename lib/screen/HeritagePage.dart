@@ -1,15 +1,17 @@
-import 'package:docent/commons/BottomBar.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+import '../commons/BottomBar.dart';
+
+class HeritagePage extends StatefulWidget {
+  const HeritagePage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<HeritagePage> createState() => _HeritagePageState();
 }
 
-class _HomePageState extends State<HomePage> {
-  int _selectedIndex = 0;
+class _HeritagePageState extends State<HeritagePage> {
+
+  int _selectedIndex = 1;
 
   void _onItemTapped(int index) {
     setState(() {
