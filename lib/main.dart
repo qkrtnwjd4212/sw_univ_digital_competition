@@ -8,19 +8,24 @@ import 'firebase_options.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'dart:io';
 
-void main() async {
+Future<void> initialize() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await dotenv.load(fileName: '.env');
   await NaverMapSdk.instance.initialize(
-      clientId: dotenv.env['NAVER_MAP_CLIENT_ID']!,
-      onAuthFailed: (ex) {
-        print("********* 네이버맵 인증오류 : $ex *********");
-      });
+    clientId: dotenv.env['NAVER_MAP_CLIENT_ID']!,
+    onAuthFailed: (ex) {
+      print("********* 네이버맵 인증오류 : $ex *********");
+    },
+  );
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+}
+
+void main() async {
+  await initialize();
   runApp(const MyApp());
 }
 
