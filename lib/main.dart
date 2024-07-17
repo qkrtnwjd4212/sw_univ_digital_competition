@@ -1,4 +1,4 @@
-import 'package:docent/screen/HomePage.dart';
+import 'package:docent/screen/home/HomePage.dart';
 import 'package:flutter/material.dart';
 import 'OAuth/login_UI.dart';
 import 'package:firebase_core/firebase_core.dart';
