@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:docent/screen/HomePage.dart';
 import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'OAuth/login_UI.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';

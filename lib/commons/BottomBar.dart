@@ -1,4 +1,4 @@
-import 'package:docent/screen/HeritagePage.dart';
+import 'package:docent/screen/Heritage/HeritagePage.dart';
 import 'package:docent/screen/HomePage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

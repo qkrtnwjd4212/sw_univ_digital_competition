@@ -1,6 +1,7 @@
+import 'package:docent/commons/HeritageBox.dart';
 import 'package:flutter/material.dart';
-import '../commons/BottomBar.dart';
-import '../commons/color_pallet.dart';
+import '../../commons/BottomBar.dart';
+import '../../commons/color_pallet.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
@@ -163,7 +164,14 @@ class _HeritageListPageState extends State<HeritageListPage> {
                     ],
                   ),
                 ),
-                SizedBox(height: height * 0.03,),
+                SizedBox(height: height * 0.04,),
+
+                // 문화재 리스트
+                HeritageBox(
+                    img: 'https://mono.aks.ac.kr/s/media/d1/d16e8a88-ce7a-4ef5-8f31-d71779286d2d.jpg?preset=page',
+                    name: '경복궁',
+                    location: '서울 종로구 사직로 161 경복궁'
+                ),
 
 
 
