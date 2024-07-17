@@ -25,7 +25,7 @@ class InfoDetail {
       ccbaAsdt: json['ccbaAsdt'],
       ccbaLcad: json['ccbaLcad'],
       ccceName: json['ccceName'],
-      imageUrl: json['imageUrl'],
+      imageUrl: json['imageUrl'] ?? '', // 이미지가 없는 경우
       content: json['content'],
     );
   }

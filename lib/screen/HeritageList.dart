@@ -86,7 +86,7 @@ class _SearchPageState extends State<SearchPage> {
     try {
       final InfoDetail detail = await InfoDetailService.fetchInfoDetail(info);
       setState(() {
-        info.imageUrl = detail.imageUrl;
+        info.imageUrl = detail.imageUrl.isNotEmpty ? detail.imageUrl : null;
       });
     } catch (e) {
       print('error : $e');
