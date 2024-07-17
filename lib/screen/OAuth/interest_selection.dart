@@ -1,5 +1,8 @@
 import 'package:docent/commons/color_pallet.dart';
+import 'package:docent/data/auth_controller.dart'; // AuthController 임포트
+import 'package:docent/screen/HomePage.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart'; // GetX 임포트
 
 class InterestSelectionScreen extends StatefulWidget {
   @override
@@ -29,6 +32,8 @@ class _InterestSelectionScreenState extends State<InterestSelectionScreen> {
   late List<bool> selectedTypes;
   late List<bool> selectedPeriods;
   String selectedCity = '부산';
+
+  final AuthController authController = Get.find(); // AuthController 인스턴스 가져오기
 
   @override
   void initState() {
@@ -108,7 +113,7 @@ class _InterestSelectionScreenState extends State<InterestSelectionScreen> {
                   selectedCity = newValue!;
                 });
               },
-              items: <String>['부산', '서울', '대구', '인천']
+              items: <String>['서울', '부산', '대구', '인천', '광주', '대전', '울산', '경기', '강원', '충북', '충남', '전북', '전남', '경북', '경남', '세종', '제주']
                   .map<DropdownMenuItem<String>>((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
@@ -120,14 +125,39 @@ class _InterestSelectionScreenState extends State<InterestSelectionScreen> {
             Center(
               child: TextButton(
                 onPressed: () {
-                  // Handle button press
+                  // 선택된 관심사, 기간, 도시 정보를 AuthController를 통해 갱신
+                  List<String> selectedTypeNames = [];
+                  List<String> selectedPeriodNames = [];
+
+                  for (int i = 0; i < types.length; i++) {
+                    if (selectedTypes[i]) {
+                      selectedTypeNames.add(types[i]);
+                    }
+                  }
+
+                  for (int i = 0; i < periods.length; i++) {
+                    if (selectedPeriods[i]) {
+                      selectedPeriodNames.add(periods[i]);
+                    }
+                  }
+
+                  authController.updateUserInterests(
+                    selectedTypeNames,
+                    selectedPeriodNames,
+                    selectedCity,
+                  );
+
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
                 },
                 style: TextButton.styleFrom(
-                  // primary: colorPallet.beige, // Text color
                   backgroundColor: colorPallet.deep_green, // Button color
                   padding: EdgeInsets.symmetric(horizontal: width*0.3, vertical: height*0.015),
                 ),
-                child: Text('선택 완료'),
+                child: Text('선택 완료',
+                  style: TextStyle(
+                      color: Colors.white
+                  ),
+                ),
               ),
             ),
           ],
