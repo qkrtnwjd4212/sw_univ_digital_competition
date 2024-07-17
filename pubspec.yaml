@@ -33,6 +33,10 @@ dependencies:
   get:
   cupertino_icons: ^1.0.2
   firebase_core: ^2.27.0
+  material_tag_editor: 0.1.2
+  firebase_auth: ^4.17.8
+  google_sign_in: ^6.2.1
+  flutter_naver_login : ^1.8.0
   flutter_naver_map: ^1.2.2
   flutter_dotenv:
 
@@ -59,8 +63,9 @@ flutter:
   uses-material-design: true
 
   assets:
-    - lib/assets/
+    - lib/assets/images/
     - lib/assets/icons/
+    - lib/assets/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
