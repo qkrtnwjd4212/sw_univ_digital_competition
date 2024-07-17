@@ -164,9 +164,6 @@ class _HeritageListPageState extends State<HeritageListPage> {
                   ),
                 ),
                 SizedBox(height: height * 0.03,),
-
-
-
               ],
             ),
           ),
