@@ -1,4 +1,6 @@
 import 'package:docent/screen/HomePage.dart';
+import 'package:docent/screen/OAuth/interest_selection.dart';
+import 'package:docent/screen/OAuth/login_UI.dart';
 import 'package:docent/screen/docent_chat/generate_explanation.dart';
 import 'package:docent/screen/docent_chat/play_explanation.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +23,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: CulturalHeritagePlayScreen(),
+      home: CulturalHeritageScreen(),
     );
   }
 }

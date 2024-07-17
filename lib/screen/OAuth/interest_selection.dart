@@ -1,46 +1,137 @@
 import 'package:docent/commons/color_pallet.dart';
 import 'package:flutter/material.dart';
 
-class SelectionScreen extends StatefulWidget {
-  const SelectionScreen({super.key});
-
+class InterestSelectionScreen extends StatefulWidget {
   @override
-  State<SelectionScreen> createState() => _SelectionScreenState();
+  _InterestSelectionScreenState createState() =>
+      _InterestSelectionScreenState();
 }
 
-class _SelectionScreenState extends State<SelectionScreen> {
-  var username = "주은";
+class _InterestSelectionScreenState extends State<InterestSelectionScreen> {
+  ColorPallet colorPallet = ColorPallet();
+  List<String> types = [
+    '궁궐',
+    '청자',
+    '불전',
+    '석탑',
+    '불교공예',
+    '성곽',
+    '무덤',
+    '비',
+  ];
+  List<String> periods = [
+    '조선시대',
+    '고려시대',
+    '삼국시대',
+    '통일신라시대',
+    '근현대',
+  ];
+  late List<bool> selectedTypes;
+  late List<bool> selectedPeriods;
+  String selectedCity = '부산';
+
+  @override
+  void initState() {
+    super.initState();
+    selectedTypes = List.generate(types.length, (index) => false);
+    selectedPeriods = List.generate(periods.length, (index) => false);
+  }
 
   @override
   Widget build(BuildContext context) {
-    ColorPallet colorPallet = ColorPallet();
     final double height = MediaQuery.of(context).size.height;
     final double width = MediaQuery.of(context).size.width;
-
     return Scaffold(
-      body: Column(
-        children: [
-          Container(
-            margin: EdgeInsets.fromLTRB(width * 0.07, height * 0.12, width * 0.07, height * 0.05),
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text("${username}님의 관심사를 선택해 주세요",
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text("홈에서 맞춤 문화재를 추천해 드릴게요!",
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: colorPallet.gray_82,
-                    ),
-                  )
-              ]
+      appBar: AppBar(
+        title: Text('관심사 선택'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              '주은님의 관심사를 선택해주세요',
+              style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold
+              ),
             ),
-          )
-        ],
+            Text(
+              '홈에서 맞춤 문화를 추천해 드릴게요!',
+              style: TextStyle(
+                  fontSize: 20,
+                  color: colorPallet.gray_82
+              ),
+            ),
+            SizedBox(height: 16),
+            Wrap(
+              spacing: 8.0,
+              runSpacing: 4.0,
+              children: List<Widget>.generate(types.length, (int index) {
+                return ChoiceChip(
+                  label: Text(types[index]),
+                  selected: selectedTypes[index],
+                  selectedColor: colorPallet.light_green,
+                  backgroundColor: colorPallet.gray_d9,
+                  onSelected: (bool selected) {
+                    setState(() {
+                      selectedTypes[index] = selected;
+                    });
+                  },
+                );
+              }).toList(),
+            ),
+            SizedBox(height: 16),
+            Wrap(
+              spacing: 8.0,
+              runSpacing: 4.0,
+              children: List<Widget>.generate(periods.length, (int index) {
+                return ChoiceChip(
+                  label: Text(periods[index]),
+                  selected: selectedPeriods[index],
+                  selectedColor: colorPallet.light_green,
+                  backgroundColor: colorPallet.gray_d9,
+                  onSelected: (bool selected) {
+                    setState(() {
+                      selectedPeriods[index] = selected;
+                    });
+                  },
+                );
+              }).toList(),
+            ),
+            SizedBox(height: 16),
+            DropdownButton<String>(
+              value: selectedCity,
+              onChanged: (newValue) {
+                setState(() {
+                  selectedCity = newValue!;
+                });
+              },
+              items: <String>['부산', '서울', '대구', '인천']
+                  .map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
+            ),
+            Spacer(),
+            Center(
+              child: TextButton(
+                onPressed: () {
+                  // Handle button press
+                },
+                style: TextButton.styleFrom(
+                  primary: colorPallet.beige, // Text color
+                  backgroundColor: colorPallet.deep_green, // Button color
+                  padding: EdgeInsets.symmetric(horizontal: width*0.3, vertical: height*0.015),
+                ),
+                child: Text('선택 완료'),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

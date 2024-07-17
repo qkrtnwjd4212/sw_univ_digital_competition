@@ -109,15 +109,17 @@ class CulturalHeritageScreen extends StatelessWidget {
       bottomNavigationBar: BottomNavigationBar(
         items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+            icon: ImageIcon(AssetImage('lib/assets/icons/home.png')),
             label: '홈',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.landscape),
+            icon: ImageIcon(AssetImage('lib/assets/icons/culture.png')),
             label: '문화재',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
+            icon: ImageIcon(
+                AssetImage('lib/assets/icons/mypage.png')
+            ),
             label: '마이',
           ),
         ],

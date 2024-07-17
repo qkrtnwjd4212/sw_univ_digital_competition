@@ -1,7 +1,7 @@
 import 'package:docent/commons/color_pallet.dart';
 import 'package:flutter/material.dart';
 
-class CulturalHeritagePlayScreen extends StatelessWidget {
+class PlayExplanationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ColorPallet colorPallet = ColorPallet();
