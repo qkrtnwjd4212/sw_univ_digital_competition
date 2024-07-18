@@ -65,7 +65,7 @@ class _MyPageMemberInfoState extends State<MyPageMemberInfo> {
                       child: TextFormField(
                         cursorColor: colorPallet.deep_green,
                         decoration: InputDecoration(
-                          hintText: '전주은', // 힌트 텍스트 설정
+                          hintText: '박수정', // 힌트 텍스트 설정
                           hintStyle: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w500,

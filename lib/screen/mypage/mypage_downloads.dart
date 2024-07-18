@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../commons/BottomBar.dart';
-import '../../services/info_service.dart';
-import '../../model/info_model.dart';
-import '../commons/DownloadHeritageBox.dart';
+import '../../commons/BottomBar.dart';
+import '../../../services/info_service.dart';
+import '../../../model/info_model.dart';
+import '../../commons/DownloadHeritageBox.dart';
 
 class MyDownnloads extends StatefulWidget {
   const MyDownnloads({super.key});

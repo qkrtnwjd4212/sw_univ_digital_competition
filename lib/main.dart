@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      home: SignInScreen(),
+      home: HomePage(),
       title: 'Flutter Demo',
     );
   }
