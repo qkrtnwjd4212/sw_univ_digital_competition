@@ -9,7 +9,7 @@ class GenerateExplanationScreen extends StatefulWidget {
 }
 
 class _GenerateExplanationScreenState extends State<GenerateExplanationScreen> {
-  var heritage_name = "경복궁";
+  var heritage_name = "경복궁 경회루";
   var tags = ["이야기 중심", "건축학적"];
   final TextEditingController tagController = TextEditingController();
 
