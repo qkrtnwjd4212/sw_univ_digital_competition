@@ -1,4 +1,5 @@
 
+import 'package:docent/screen/Heritage/HeritageListPage.dart';
 import 'package:docent/screen/home/HomePage.dart';
 import 'package:docent/screen/OAuth/interest_selection.dart';
 import 'package:docent/screen/OAuth/login_UI.dart';
@@ -7,7 +8,6 @@ import 'package:docent/screen/docent_chat/play_explanation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'OAuth/login_UI.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      home: HomePage(),
+      home: SignInDemo(),
       title: 'Flutter Demo',
     );
   }
