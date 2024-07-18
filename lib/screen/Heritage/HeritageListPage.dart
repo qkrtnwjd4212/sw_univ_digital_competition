@@ -1,24 +1,173 @@
 import 'package:docent/commons/HeritageBox.dart';
 import 'package:flutter/material.dart';
+import 'package:just_audio/just_audio.dart';
+
 import '../../commons/BottomBar.dart';
 import '../../commons/color_pallet.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-
+import '../../services/info_service.dart';
+import '../../model/info_model.dart';
+import '../../services/info_detail_service.dart';
+import '../../model/info_detail_model.dart';
+import '../../services/info_voice_service.dart';
+import '../../model/info_voice_model.dart';
 import 'HeritagePage.dart';
 
-
-
 class HeritageListPage extends StatefulWidget {
-  const HeritageListPage({super.key});
-
   @override
-  State<HeritageListPage> createState() => _HeritageListPageState();
+  _HeritageListPageState createState() => _HeritageListPageState();
 }
 
 class _HeritageListPageState extends State<HeritageListPage> {
-  final ColorPallet colorPallet = ColorPallet();
+  final TextEditingController _controller = TextEditingController();
+  Future<List<Info>>? _searchResults;
 
+  String? _selectedRegion;
+  String? _selectedCategory;
+  final Map<String, String> _regions = {
+    // ccbaCtcd 시도코드
+    '지역 선택': '',
+    '서울': '11',
+    '부산': '21',
+    '대구': '22',
+    '인천': '23',
+    '광주': '24',
+    '대전': '25',
+    '울산': '26',
+    '세종': '45',
+    '경기': '31',
+    '강원': '32',
+    '충북': '33',
+    '충남': '34',
+    '전북': '35',
+    '전남': '36',
+    '경북': '37',
+    '경남': '38',
+    '제주': '50',
+    '전국일원': 'ZZ',
+  };
+  final Map<String, String> _categories = {
+    // ccbaKdcd 종목코드
+    '분류 선택': '',
+    '국보': '11',
+    '보물': '12',
+    '사적': '13',
+    '사적및명승': '14',
+    '명승': '15',
+    '천연기념물': '16',
+    '국가무형유산': '17',
+    '국가민속문화유산': '18',
+    '시도유형문화유산': '21',
+    '시도무형유산': '22',
+    '시도기념물': '23',
+    '시도민속문화유산': '24',
+    '시도등록유산': '25',
+    '문화유산자료': '31',
+    '국가등록유산': '79',
+    '이북5도 무형유산': '80',
+  };
+
+  void _search() {
+    setState(() {
+      _searchResults = InfoService.fetchInfos(
+        query: _controller.text,
+        regionCode: _selectedRegion,
+        categoryCode: _selectedCategory,
+      );
+    });
+  }
+
+  void _clearSearch() {
+    // 초기화하기
+    setState(() {
+      _controller.clear();
+      _searchResults = null;
+      _selectedCategory = '';
+      _selectedRegion = '';
+    });
+  }
+
+  void _loadImage(Info info) async {
+    try {
+      final InfoDetail detail = await InfoDetailService.fetchInfoDetail(info);
+      setState(() {
+        info.imageUrl = detail.imageUrl.isNotEmpty ? detail.imageUrl : null;
+      });
+    } catch (e) {
+      print('error : $e');
+    }
+  }
+
+  void _showInfoDetail(Info info) async {
+    // 사용 예시
+    try {
+      final InfoDetail detail = await InfoDetailService.fetchInfoDetail(info);
+      final InfoVoice infoVoice = await InfoVoiceService.fetchInfoVoice(info);
+
+      final player = AudioPlayer();
+
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text(info.ccbaMnm1), // 국가유산명(국문)
+          content: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text('종목: ${detail.ccmaName}'),
+                Text('종목코드: ${info.ccbaKdcd}'),
+                Text('분류: ${detail.gcodeName}'),
+                Text('지정(등록일): ${detail.ccbaAsdt}'),
+                Text('소재지: ${detail.ccbaLcad}'),
+                Text('시대: ${detail.ccceName}'),
+                detail.imageUrl.isNotEmpty
+                    ? Image.network(detail.imageUrl)
+                    : Container(),
+                Text('내용: ${detail.content}'),
+                Text('나레이션 주소: ${infoVoice.voiceUrl}'),
+                ElevatedButton(
+                  onPressed: () async {
+                    if (infoVoice.voiceUrl.isNotEmpty) {
+                      await player.setUrl(infoVoice.voiceUrl);
+                      player.play();
+                    }
+                  },
+                  child: Text('나레이션 듣기'),
+                ),
+              ],
+            ),
+          ),
+          actions: [
+            TextButton(
+              child: Text('닫기'),
+              onPressed: () {
+                Navigator.of(context).pop();
+                player.dispose();
+              },
+            ),
+          ],
+        ),
+      );
+    } catch (e) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text('Error'),
+          content: Text('Failed to load info detail'),
+          actions: [
+            TextButton(
+              child: Text('닫기'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        ),
+      );
+    }
+  }
+
+  final ColorPallet colorPallet = ColorPallet();
   // 하단바 컨트롤
   int _selectedIndex = 1;
   void _onItemTapped(int index) {
@@ -28,11 +177,6 @@ class _HeritageListPageState extends State<HeritageListPage> {
     });
   }
 
-  List<String> city_list = ['서울', '경기', '부산', '대구', '인천', '광주',' 대전','울산', '강원'];
-  List<String> type_list = ['탑', '성곽시설', '불전', '석등'];
-  String? selectedCity;
-  String? selectedType;
-
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
@@ -40,143 +184,176 @@ class _HeritageListPageState extends State<HeritageListPage> {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SingleChildScrollView(
-        child: Center(
-          child: SizedBox(
-            width: width * 0.9,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                SizedBox(height: height * 0.07,),
-                // 지역, 분류 선택
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: DropdownButtonFormField<String>(
-                        iconEnabledColor: colorPallet.light_green,
-                        iconDisabledColor: colorPallet.light_green,
-                        iconSize: 30,
-                        decoration: InputDecoration(
-                          labelText: '지역',
-                          labelStyle: TextStyle(
-                            color: Color(0xffCACACA),
-                          ),
+      body: Center(
+        child: SizedBox(
+          width: width * 0.9,
+          child: Column(
+            children: [
+              SizedBox(height: height * 0.07,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: DropdownButtonFormField<String>(
+                      iconEnabledColor: colorPallet.light_green,
+                      iconDisabledColor: colorPallet.light_green,
+                      iconSize: 30,
+                      decoration: InputDecoration(
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: colorPallet.light_green),
                             borderRadius: BorderRadius.circular(15),
                           ),
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.black),
+                            borderSide: BorderSide(color: colorPallet.light_green),
                             borderRadius: BorderRadius.circular(15),
                           ),
-                          contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 12)
-                        ),
-                        value: selectedCity,
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            selectedCity = newValue;
-                          });
-                        },
-                        items: city_list.map<DropdownMenuItem<String>>((String city) {
-                          return DropdownMenuItem<String>(
-                            value: city,
-                            child: Text(city),
-                          );
-                        }).toList(),
+                          contentPadding: EdgeInsets.fromLTRB(10, 10, 5, 10),
                       ),
+                      isExpanded: true,
+                      value: _selectedRegion ?? '',
+                      items: _regions.entries.map((entry) {
+                        return DropdownMenuItem<String>(
+                          value: entry.value,
+                          child: Text(entry.key, style: TextStyle(
+                            color: Color(0xffCACACA)
+                          ),),
+                        );
+                      }).toList(),
+                      onChanged: (value) {
+                        setState(() {
+                          _selectedRegion = value;
+                        });
+                      },
                     ),
-                    SizedBox(width: 24),
-                    Expanded(
-                      child: DropdownButtonFormField<String>(
-                        iconEnabledColor: colorPallet.light_green,
-                        iconDisabledColor: colorPallet.light_green,
-                        iconSize: 30,
-                        decoration: InputDecoration(
-                            labelText: '분류',
-                            labelStyle: TextStyle(
-                              color: Color(0xffCACACA),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: colorPallet.light_green),
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.black),
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 12)
-                        ),
-                        value: selectedType,
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            selectedType = newValue;
-                          });
-                        },
-                        items: type_list.map<DropdownMenuItem<String>>((String type) {
-                          return DropdownMenuItem<String>(
-                            value: type,
-                            child: Text(type),
-                          );
-                        }).toList(),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: height * 0.02),
-                // 검색창
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 16),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(15),
-                    border: Border.all(
-                      color: colorPallet.light_green,
-                      width: 1
-                    )
                   ),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: TextField(
-                          cursorColor: Color(0xff729493),
-                          decoration: InputDecoration(
-                            hintText: '문화재명, 키워드, 지역 검색',
-                            hintStyle: TextStyle(
-                              color: Color(0xffCACACA),
-                              fontSize: 18,
-                            ),
-
-                            border: InputBorder.none,
+                  SizedBox(width: 20),
+                  Expanded(
+                    child: DropdownButtonFormField<String>(
+                      iconEnabledColor: colorPallet.light_green,
+                      iconDisabledColor: colorPallet.light_green,
+                      iconSize: 30,
+                      decoration: InputDecoration(
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: colorPallet.light_green),
+                            borderRadius: BorderRadius.circular(15),
                           ),
-                        ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: colorPallet.light_green),
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                        contentPadding: EdgeInsets.fromLTRB(10, 10, 5, 10),
+
                       ),
-                      IconButton(
-                        icon: Icon(
-                          Icons.search,
-                          color: Color(0xff729493),
-                        ),
-                        onPressed: () {
-                          // 검색 버튼 클릭 시 동작 추가
-                          print("검색 버튼 클릭됨");
-                        },
-                      ),
-                    ],
+                      value: _selectedCategory ?? '',
+                      hint: Text('분류'),
+                      items: _categories.entries.map((entry) {
+                        return DropdownMenuItem<String>(
+                          value: entry.value,
+                          child: Text(entry.key, style: TextStyle(
+                              color: Color(0xffCACACA)
+                          ),),
+                        );
+                      }).toList(),
+                      onChanged: (value) {
+                        setState(() {
+                          _selectedCategory = value;
+                        });
+                      },
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: height * 0.02),
+              // 검색창
+              TextField(
+                cursorColor: colorPallet.deep_green,
+                controller: _controller,
+                decoration: InputDecoration(
+                  hintText: '문화재 이름을 입력하세요',
+                  hintStyle: TextStyle(
+                    color: Color(0xffCACACA),
+                  ),
+                  prefixIcon: IconButton(
+                    icon: Icon(
+                      Icons.arrow_back,
+                      color: colorPallet.light_green,
+                    ),
+                    onPressed: _clearSearch,
+                  ),
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                        Icons.search,
+                        color: colorPallet.light_green,
+                    ),
+                    onPressed: _search,
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: colorPallet.light_green), // 기본 외곽선 색상 설정
+                    borderRadius: BorderRadius.circular(15), // 모서리를 둥글게 설정
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: colorPallet.light_green), // 포커스된 외곽선 색상 설정
+                    borderRadius: BorderRadius.circular(15), // 모서리를 둥글게 설정
+                  ),
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(color: colorPallet.light_green), // 기본 외곽선 색상 설정
+                    borderRadius: BorderRadius.circular(15), // 모서리를 둥글게 설정
                   ),
                 ),
-                SizedBox(height: height * 0.04,),
+              ),
 
-                // 문화재 리스트
-                HeritageBox(
-                    img: 'https://mono.aks.ac.kr/s/media/d1/d16e8a88-ce7a-4ef5-8f31-d71779286d2d.jpg?preset=page',
-                    name: '경복궁',
-                    location: '서울 종로구 사직로 161 경복궁'
+              // 검색 결과
+              if (_searchResults != null)
+                Expanded(
+                  child: FutureBuilder<List<Info>>(
+                    future: _searchResults,
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Center(child: CircularProgressIndicator()); // 로딩중
+                      }
+                      if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                        return Center(
+                            child: Text('검색결과 없음')
+                        );
+                      }
+                      final infos = snapshot.data!;
+                      return ListView.builder(
+                        itemCount: infos.length,
+                        itemBuilder: (context, index) {
+                          final info = infos[index];
+                          if (info.imageUrl == null) {
+                            _loadImage(info);
+                          }
+                          return HeritageBox(
+                              img: info.imageUrl,
+                              name: info.ccbaMnm1,
+                              info: info);
+                          // return ListTile(
+                          //   leading: SizedBox(
+                          //     // 이미지 칸
+                          //     width: MediaQuery.of(context).size.width * 0.2,
+                          //     height: MediaQuery.of(context).size.height * 0.2,
+                          //     child: info.imageUrl != null
+                          //         ? Image.network(
+                          //             info.imageUrl!,
+                          //             width: 50,
+                          //             height: 50,
+                          //             fit: BoxFit.contain,
+                          //           )
+                          //         : Container(
+                          //             color: Colors.grey[300],
+                          //           ),
+                          //   ),
+                          //   title: Text(info.ccbaMnm1),
+                          //   subtitle: Text('관리번호: ${info.ccbaAsno}'),
+                          //   onTap: () => _showInfoDetail(info),
+                          // );
+                        },
+                      );
+                    },
+                  ),
                 ),
-
-
-
-              ],
-            ),
+            ],
           ),
         ),
       ),
@@ -202,4 +379,3 @@ class _HeritageListPageState extends State<HeritageListPage> {
     );
   }
 }
-
