@@ -1,4 +1,5 @@
 
+import 'package:docent/screen/docent_chat/chat.dart';
 import 'package:docent/screen/home/HomePage.dart';
 import 'package:docent/screen/OAuth/interest_selection.dart';
 import 'package:docent/screen/OAuth/login_UI.dart';
@@ -40,7 +41,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      home: SignInDemo(),
+      home: ChatScreen(),
       title: 'Flutter Demo',
     );
   }
