@@ -4,6 +4,9 @@ import '../../commons/color_pallet.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
+import 'MyPage_Favorite.dart';
+import 'MyPage_MemberInfo.dart';
+
 class MyPage extends StatefulWidget {
   const MyPage({super.key});
 
@@ -69,7 +72,7 @@ class _MyPageState extends State<MyPage> {
                     width: 75,
                     height: 35,
                     child: TextButton(onPressed: () {
-
+                      Get.to(MyPageMemberInfo());
                     }, style: TextButton.styleFrom(
                       backgroundColor: colorPallet.deep_green, // 버튼 배경색 설정
                       shape: RoundedRectangleBorder(
@@ -93,7 +96,7 @@ class _MyPageState extends State<MyPage> {
                 height: 10,
               ),
               TextButton(onPressed: () {
-
+                Get.to(MypageFavorite());
               }, child: Text('좋아요 한 문화재', style: TextStyle(
                 color: Colors.black,
                 fontSize: 18,
