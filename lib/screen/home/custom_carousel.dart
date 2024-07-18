@@ -39,7 +39,7 @@ class _ImgBox extends StatelessWidget {
 
     return CarouselSlider(
       options: CarouselOptions(
-        height: containerHeight,
+        // height: containerHeight,
         autoPlay: false, // 자동 슬라이더
         aspectRatio: 16 / 9, // 가로 세로 비율 조정
         viewportFraction: 0.4, // 한 화면에 여러 개의 슬라이더가 보이도록 조정
@@ -50,8 +50,8 @@ class _ImgBox extends StatelessWidget {
         return Builder(
           builder: (BuildContext context) {
             return Container(
-              width: containerWidth, // 기기 가로사이즈
-              height: containerHeight,
+              // width: containerWidth, // 기기 가로사이즈
+              // height: containerHeight,
               margin: EdgeInsets.symmetric(horizontal: 5.0), // 좌우여백
               // decoration: BoxDecoration(color: Colors.amber),
               child:
@@ -60,11 +60,12 @@ class _ImgBox extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                      width: containerWidth,
-                      child: Image.asset(imgUrl[idx], fit: BoxFit.contain)),
+                      // width: containerWidth,
+                      height: MediaQuery.of(context).size.height * 0.2,
+                      child: Image.asset(imgUrl[idx], fit: BoxFit.cover)),
                   SizedBox(height: 5),
                   Container(
-                    width: containerWidth,
+                    // width: containerWidth,
                     child: Text(
                       names[idx],
                       style: TextStyle(fontSize: 16.0),
