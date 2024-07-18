@@ -56,7 +56,7 @@ class _InterestSelectionScreenState extends State<InterestSelectionScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              '주은님의 관심사를 선택해주세요',
+              '수정님의 관심사를 선택해주세요',
               style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold
