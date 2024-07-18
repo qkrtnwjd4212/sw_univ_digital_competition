@@ -7,12 +7,12 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:get/get.dart';
 
 
-class SignInDemo extends StatefulWidget {
+class SignInScreen extends StatefulWidget {
   @override
-  State createState() => SignInDemoState();
+  State createState() => SignInScreenState();
 }
 
-class SignInDemoState extends State<SignInDemo> {
+class SignInScreenState extends State<SignInScreen> {
   final GoogleSignIn _googleSignIn = GoogleSignIn(
     scopes: [
       'email',
@@ -142,13 +142,14 @@ class SignInDemoState extends State<SignInDemo> {
               //     child: Text(user.loginType == 'google' ? 'Sign Out' : 'Sign Out from Naver'),
               //   ),
               // ] else ...[
-                const Text(
+                Text(
                   '로그인으로 나만의\nAI 도슨트의 추천을 받아요!',
                   style: TextStyle(
                     fontSize: 20,
+                    color: colorPallet.gray_82
                   ),
                 ),
-                const SizedBox(height: 20),
+                SizedBox(height: height * 0.12),
                 // Google Login
                 Container(
                   width: width * 0.7,
@@ -194,6 +195,7 @@ class SignInDemoState extends State<SignInDemo> {
                 const SizedBox(height: 20),
                 Center(
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
                         "이용약관",
@@ -210,7 +212,8 @@ class SignInDemoState extends State<SignInDemo> {
                       ),
                     ],
                   ),
-                )
+                ),
+              SizedBox(height: height*0.2,)
               ],
             // ],
           );
