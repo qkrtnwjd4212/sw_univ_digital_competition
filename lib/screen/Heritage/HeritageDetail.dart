@@ -180,10 +180,10 @@ class _HeritageDetailState extends State<HeritageDetail> {
                               width: 260,
                               height: 46,
                               child: TextButton(onPressed: () {
-                                Get.to(CulturalHeritageScreen());
+                                Get.to(GenerateExplanationScreen());
                               },
                                   style: TextButton.styleFrom(
-                                    backgroundColor: colorPallet.deep_green, // 버튼 배경색 설정
+                                    backgroundColor: colorPallet.deep_green,
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(15), // 모서리를 15만큼 둥글게
                                     ),

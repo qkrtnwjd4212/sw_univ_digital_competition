@@ -1,6 +1,6 @@
 import 'package:docent/commons/color_pallet.dart';
 import 'package:docent/data/auth_controller.dart'; // AuthController 임포트
-import 'package:docent/screen/HomePage.dart';
+import 'package:docent/screen/home/HomePage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart'; // GetX 임포트
 
