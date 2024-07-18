@@ -79,6 +79,9 @@ class _InterestSelectionScreenState extends State<InterestSelectionScreen> {
                   selected: selectedTypes[index],
                   selectedColor: colorPallet.light_green,
                   backgroundColor: colorPallet.gray_d9,
+                  side: BorderSide(
+                    color: selectedTypes[index] ? colorPallet.light_green : colorPallet.gray_d9,
+                  ),
                   onSelected: (bool selected) {
                     setState(() {
                       selectedTypes[index] = selected;
@@ -97,6 +100,9 @@ class _InterestSelectionScreenState extends State<InterestSelectionScreen> {
                   selected: selectedPeriods[index],
                   selectedColor: colorPallet.light_green,
                   backgroundColor: colorPallet.gray_d9,
+                  side: BorderSide(
+                    color: selectedPeriods[index] ? colorPallet.light_green : colorPallet.gray_d9,
+                  ),
                   onSelected: (bool selected) {
                     setState(() {
                       selectedPeriods[index] = selected;
