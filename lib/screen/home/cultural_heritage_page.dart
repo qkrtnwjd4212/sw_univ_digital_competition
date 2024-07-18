@@ -9,7 +9,9 @@ class CulturalHeritagePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        backgroundColor: Colors.white,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
@@ -30,14 +32,14 @@ class CulturalHeritagePage extends StatelessWidget {
             '광주학생독립운동기념관',
             null,
           ),
-          Divider(color: Colors.grey),
+          Divider(color: Color(0xffD9D9D9)),
           _buildCulturalHeritageItem(
             'lib/assets/images/부여_부소산성.jpg',
             '백제 멸망',
             '부여 백제유적지',
             CulturalModal(),
           ),
-          Divider(color: Colors.grey),
+          Divider(color: Color(0xffD9D9D9)),
           _buildCulturalHeritageItem(
             'lib/assets/images/덕수궁.jpg',
             '고종 황제 강제 퇴위',
@@ -64,7 +66,7 @@ class CulturalHeritagePage extends StatelessWidget {
           title: Text(title),
           subtitle: Row(
             children: [
-              Icon(Icons.location_on, size: 16, color: Colors.grey),
+              Icon(Icons.location_on, size: 16, color: Color(0xff96B8B8)),
               SizedBox(width: 4),
               Text(location, style: TextStyle(color: Colors.grey)),
             ],

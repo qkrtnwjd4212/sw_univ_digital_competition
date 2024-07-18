@@ -26,7 +26,9 @@ class _GenerateExplanationScreenState extends State<GenerateExplanationScreen> {
     final double height = MediaQuery.of(context).size.height;
     final double width = MediaQuery.of(context).size.width;
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        backgroundColor: Colors.white,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
@@ -49,10 +51,10 @@ class _GenerateExplanationScreenState extends State<GenerateExplanationScreen> {
               height: 150,
               fit: BoxFit.cover,
             ),
-            SizedBox(height: 16),
+            SizedBox(height: 5),
             Text(
               '${heritage_name}',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 16),
             Text(
@@ -63,12 +65,18 @@ class _GenerateExplanationScreenState extends State<GenerateExplanationScreen> {
             ),
             SizedBox(height: 8),
             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Expanded(
+                Container(
+                  width: width * 0.67,
                   child: TextField(
                     controller: tagController,
+                    cursorColor: colorPallet.light_green, // 커서 색깔 설정
                     decoration: InputDecoration(
                       hintText: '예) 사건사고',
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: colorPallet.light_green, width: 2.0,), // 포커스 시 언더라인 색깔 설정
+                      ),
                     ),
                   ),
                 ),
@@ -82,19 +90,47 @@ class _GenerateExplanationScreenState extends State<GenerateExplanationScreen> {
                 ),
               ],
             ),
-            SizedBox(height: 8),
+            SizedBox(height: 20),
             Wrap(
               spacing: 8.0,
               children: tags.map((tag) {
                 return Chip(
-                  label: Text('# $tag'),
+                  backgroundColor: colorPallet.light_green,
+                  label: Text(
+                    '# $tag',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0), // 둥글기의 정도를 설정
+                    side: BorderSide(
+                      color: colorPallet.light_green, // 외곽선 색상을 colorPallet.light_green으로 설정
+                      width: 1.0,
+                    ),
+                  ),
                 );
               }).toList(),
             ),
             SizedBox(height: 16),
             Container(
               width: width * 0.8,
-              child: DropdownButton<String>(
+              child: Text('언어 선택', style: TextStyle(
+                fontSize: 18,
+              ),),
+            ),
+            SizedBox(height: 5,),
+            Container(
+              width: width * 0.8,
+              child: DropdownButtonFormField<String>(
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                    borderSide: BorderSide(color: Colors.grey),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                    borderSide: BorderSide(color: colorPallet.light_green, width: 2.0),
+                  ),
+                ),
                 value: '한국어',
                 items: <String>['한국어', '영어'].map((String value) {
                   return DropdownMenuItem<String>(
@@ -103,32 +139,39 @@ class _GenerateExplanationScreenState extends State<GenerateExplanationScreen> {
                   );
                 }).toList(),
                 onChanged: (_) {},
+                icon: Icon(Icons.arrow_drop_down, color: colorPallet.light_green), // 화살표 버튼 색상 설정
+                dropdownColor: Colors.white, // 아이템 창의 배경을 흰색으로 설정
               ),
             ),
-            SizedBox(height: 16),
-            TextButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => PlayExplanationScreen()),
-                );
-              },
-              style: ButtonStyle(
-                backgroundColor: WidgetStateProperty.all(colorPallet.deep_green),
-                shape: WidgetStateProperty.all(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8.0),
+            SizedBox(height: 50),
+            SizedBox(
+              width: 260,
+              height: 46,
+              child: TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => PlayExplanationScreen()),
+                  );
+                },
+                style: ButtonStyle(
+                  backgroundColor: WidgetStateProperty.all(colorPallet.deep_green),
+                  shape: WidgetStateProperty.all(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
                   ),
                 ),
-              ),
-              child: Container(
-                width: width * 0.8,
-                height: height * 0.05,
-                alignment: Alignment.center,
-                child: Text(
-                  '해설 생성하기',
-                  style: TextStyle(
-                    color: Colors.white,
+                child: Container(
+                  width: width * 0.8,
+                  height: height * 0.05,
+                  alignment: Alignment.center,
+                  child: Text(
+                    '해설 생성하기',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ),

@@ -44,7 +44,7 @@ class _HomePageState extends State<HomePage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                CustomBox(title: '전주은님을 위한 맞춤 문화재', names: [
+                CustomBox(title: '박수정님을 위한 맞춤 문화재', names: [
                   '경회루',
                   '덕수궁',
                   '근정전'

@@ -6,6 +6,7 @@ import 'package:get/get_core/src/get_main.dart';
 
 import 'MyPage_Favorite.dart';
 import 'MyPage_MemberInfo.dart';
+import 'mypage_downloads.dart';
 
 class MyPage extends StatefulWidget {
   const MyPage({super.key});
@@ -63,7 +64,7 @@ class _MyPageState extends State<MyPage> {
                   ),
                   SizedBox(width: 20,),
                   Expanded(
-                    child: Text('전주은님', style: TextStyle(
+                    child: Text('박수정님', style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w500
                     ),),
@@ -116,7 +117,7 @@ class _MyPageState extends State<MyPage> {
               ),
 
               TextButton(onPressed: () {
-
+                Get.to(MyDownnloads());
               }, child: Text('다운로드한 컨텐츠', style: TextStyle(
                   color: Colors.black,
                   fontSize: 18,
