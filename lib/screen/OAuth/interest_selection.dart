@@ -123,7 +123,7 @@ class _InterestSelectionScreenState extends State<InterestSelectionScreen> {
                   // Handle button press
                 },
                 style: TextButton.styleFrom(
-                  foregroundColor: colorPallet.beige,
+                  // primary: colorPallet.beige, // Text color
                   backgroundColor: colorPallet.deep_green, // Button color
                   padding: EdgeInsets.symmetric(horizontal: width*0.3, vertical: height*0.015),
                 ),
