@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../commons/BottomBar.dart';
-import '../../../services/info_service.dart';
-import '../../../model/info_model.dart';
-import '../../commons/DownloadHeritageBox.dart';
+import '../commons/BottomBar.dart';
+import '../../services/info_service.dart';
+import '../../model/info_model.dart';
+import '../commons/DownloadHeritageBox.dart';
 
 class MyDownnloads extends StatefulWidget {
   const MyDownnloads({super.key});
@@ -65,24 +65,58 @@ class _MyDownnloadsState extends State<MyDownnloads> {
                 if (snapshot.hasError) {
                   return Center(child: Text('Error: ${snapshot.error}'));
                 }
-                final info = snapshot.data!;
+                final info1 = snapshot.data!;
                 return Column(
                   children: [
                     DownloadHeritageBox(
                       img: 'lib/assets/images/근정전.jpg',
-                      name: '경복궁 근정전',
-                      info: info,
+                      name: '근정전',
+                      info: info1,
                     ),
-                    DownloadHeritageBox(
-                      img: 'lib/assets/images/덕수궁.jpg',
-                      name: '덕수궁',
-                      info: info,
+                    FutureBuilder<Info>(
+                      future: _fetchInfo('덕수궁'), // '덕수궁' 정보 가져오기
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.waiting) {
+                          return Center(child: CircularProgressIndicator());
+                        }
+                        if (snapshot.hasError) {
+                          return Center(child: Text('Error: ${snapshot.error}'));
+                        }
+                        final info2 = snapshot.data!; // '덕수궁' 정보 저장
+                        return DownloadHeritageBox(
+                          img: 'lib/assets/images/덕수궁.jpg',
+                          name: '덕수궁',
+                          info: info2, // '덕수궁' 정보 전달
+                        );
+                      },
                     ),
-                    DownloadHeritageBox(
-                      img: 'lib/assets/images/경회루.jpg',
-                      name: '경복궁 경회루',
-                      info: info,
+                    FutureBuilder<Info>(
+                      future: _fetchInfo('경회루'), // '경회루' 정보 가져오기
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.waiting) {
+                          return Center(child: CircularProgressIndicator());
+                        }
+                        if (snapshot.hasError) {
+                          return Center(child: Text('Error: ${snapshot.error}'));
+                        }
+                        final info3 = snapshot.data!; // '경회루' 정보 저장
+                        return DownloadHeritageBox(
+                          img: 'lib/assets/images/경회루.jpg',
+                          name: '경회루',
+                          info: info3, // '경회루' 정보 전달
+                        );
+                      },
                     ),
+                    // DownloadHeritageBox(
+                    //   img: 'lib/assets/images/덕수궁.jpg',
+                    //   name: '덕수궁',
+                    //   info: info,
+                    // ),
+                    // DownloadHeritageBox(
+                    //   img: 'lib/assets/images/경회루.jpg',
+                    //   name: '경회루',
+                    //   info: info,
+                    // ),
                   ],
                 );
               },

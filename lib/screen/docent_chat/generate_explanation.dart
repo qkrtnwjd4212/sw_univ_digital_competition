@@ -65,6 +65,7 @@ class _GenerateExplanationScreenState extends State<GenerateExplanationScreen> {
             ),
             SizedBox(height: 8),
             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
                   width: width * 0.7,
