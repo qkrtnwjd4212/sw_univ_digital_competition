@@ -4,13 +4,18 @@ class CulturalModal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+      ),
       child: Container(
         constraints: BoxConstraints(
           maxHeight: MediaQuery.of(context).size.height * 0.6,
           maxWidth: MediaQuery.of(context).size.width * 0.9,
         ),
         child: Scaffold(
+          backgroundColor: Colors.white,
           appBar: AppBar(
+            backgroundColor: Colors.white,
             title: Align(
               alignment: Alignment.centerLeft,
               child: Text('7월 19일 - 백제 멸망', style: TextStyle(fontSize: 19)),

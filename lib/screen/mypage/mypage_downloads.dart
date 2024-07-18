@@ -70,7 +70,7 @@ class _MyDownnloadsState extends State<MyDownnloads> {
                   children: [
                     DownloadHeritageBox(
                       img: 'lib/assets/images/근정전.jpg',
-                      name: '근정전',
+                      name: '경복궁 근정전',
                       info: info,
                     ),
                     DownloadHeritageBox(
@@ -80,7 +80,7 @@ class _MyDownnloadsState extends State<MyDownnloads> {
                     ),
                     DownloadHeritageBox(
                       img: 'lib/assets/images/경회루.jpg',
-                      name: '경회루',
+                      name: '경복궁 경회루',
                       info: info,
                     ),
                   ],

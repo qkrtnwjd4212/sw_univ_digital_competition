@@ -66,7 +66,8 @@ class _GenerateExplanationScreenState extends State<GenerateExplanationScreen> {
             SizedBox(height: 8),
             Row(
               children: [
-                Expanded(
+                Container(
+                  width: width * 0.7,
                   child: TextField(
                     controller: tagController,
                     decoration: InputDecoration(
@@ -96,11 +97,22 @@ class _GenerateExplanationScreenState extends State<GenerateExplanationScreen> {
             SizedBox(height: 16),
             Container(
               width: width * 0.8,
+              child: Text('언어 선택', style: TextStyle(
+                fontSize: 18,
+              ),),
+            ),
+            SizedBox(height: 5,),
+            Container(
+              width: width * 0.8,
               child: DropdownButtonFormField<String>(
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8.0),
                     borderSide: BorderSide(color: Colors.grey),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                    borderSide: BorderSide(color: colorPallet.light_green, width: 2.0),
                   ),
                 ),
                 value: '한국어',
@@ -111,11 +123,11 @@ class _GenerateExplanationScreenState extends State<GenerateExplanationScreen> {
                   );
                 }).toList(),
                 onChanged: (_) {},
-                icon: Icon(Icons.arrow_drop_down, color: Colors.black), // 화살표 버튼 색상 설정
+                icon: Icon(Icons.arrow_drop_down, color: colorPallet.light_green), // 화살표 버튼 색상 설정
                 dropdownColor: Colors.white, // 아이템 창의 배경을 흰색으로 설정
               ),
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 50),
             SizedBox(
               width: 260,
               height: 46,
