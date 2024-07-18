@@ -7,13 +7,13 @@ class CulturalModal extends StatelessWidget {
       child: Container(
         constraints: BoxConstraints(
           maxHeight: MediaQuery.of(context).size.height * 0.6,
-          maxWidth: MediaQuery.of(context).size.width * 0.8,
+          maxWidth: MediaQuery.of(context).size.width * 0.9,
         ),
         child: Scaffold(
           appBar: AppBar(
             title: Align(
               alignment: Alignment.centerLeft,
-              child: Text('7월 19일 - 백제 멸망', style: TextStyle(fontSize: 20)),
+              child: Text('7월 19일 - 백제 멸망', style: TextStyle(fontSize: 19)),
 
             ),
             actions: [ // 오른쪽 상단 닫기 버튼

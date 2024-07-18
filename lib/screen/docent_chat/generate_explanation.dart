@@ -26,7 +26,9 @@ class _GenerateExplanationScreenState extends State<GenerateExplanationScreen> {
     final double height = MediaQuery.of(context).size.height;
     final double width = MediaQuery.of(context).size.width;
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        backgroundColor: Colors.white,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
@@ -49,10 +51,10 @@ class _GenerateExplanationScreenState extends State<GenerateExplanationScreen> {
               height: 150,
               fit: BoxFit.cover,
             ),
-            SizedBox(height: 16),
+            SizedBox(height: 5),
             Text(
               '${heritage_name}',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 16),
             Text(
@@ -94,7 +96,13 @@ class _GenerateExplanationScreenState extends State<GenerateExplanationScreen> {
             SizedBox(height: 16),
             Container(
               width: width * 0.8,
-              child: DropdownButton<String>(
+              child: DropdownButtonFormField<String>(
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                    borderSide: BorderSide(color: Colors.grey),
+                  ),
+                ),
                 value: '한국어',
                 items: <String>['한국어', '영어'].map((String value) {
                   return DropdownMenuItem<String>(
@@ -103,32 +111,39 @@ class _GenerateExplanationScreenState extends State<GenerateExplanationScreen> {
                   );
                 }).toList(),
                 onChanged: (_) {},
+                icon: Icon(Icons.arrow_drop_down, color: Colors.black), // 화살표 버튼 색상 설정
+                dropdownColor: Colors.white, // 아이템 창의 배경을 흰색으로 설정
               ),
             ),
-            SizedBox(height: 16),
-            TextButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => PlayExplanationScreen()),
-                );
-              },
-              style: ButtonStyle(
-                backgroundColor: WidgetStateProperty.all(colorPallet.deep_green),
-                shape: WidgetStateProperty.all(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8.0),
+            SizedBox(height: 20),
+            SizedBox(
+              width: 260,
+              height: 46,
+              child: TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => PlayExplanationScreen()),
+                  );
+                },
+                style: ButtonStyle(
+                  backgroundColor: WidgetStateProperty.all(colorPallet.deep_green),
+                  shape: WidgetStateProperty.all(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
                   ),
                 ),
-              ),
-              child: Container(
-                width: width * 0.8,
-                height: height * 0.05,
-                alignment: Alignment.center,
-                child: Text(
-                  '해설 생성하기',
-                  style: TextStyle(
-                    color: Colors.white,
+                child: Container(
+                  width: width * 0.8,
+                  height: height * 0.05,
+                  alignment: Alignment.center,
+                  child: Text(
+                    '해설 생성하기',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ),
