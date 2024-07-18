@@ -52,12 +52,13 @@ class DownloadHeritageBox extends StatelessWidget {
                     Container(
                       width: width * 0.25,
                       child: Stack(
+                        alignment: Alignment.center,
                         children: [
                           ClipRRect(
                             borderRadius: BorderRadius.circular(5),
                             child: img != null
                                 ? Image.asset(
-                              img!, // Assuming img is the asset path like 'lib/assets/images/근정전.jpg'
+                              img!,
                               fit: BoxFit.cover,
                               width: width * 0.25,
                               height: 80,
@@ -68,22 +69,10 @@ class DownloadHeritageBox extends StatelessWidget {
                               color: Colors.grey[300],
                             ),
                           ),
-                          Positioned(
-                            top: 0,
-                            right: 0,
-                            child: GestureDetector(
-                              onTap: () {
-                                // 좋아요 로직 추가
-                              },
-                              child: Container(
-                                padding: EdgeInsets.all(5),
-                                child: Icon(
-                                  Icons.favorite_border_outlined,
-                                  color: Colors.white,
-                                  size: 20,
-                                ),
-                              ),
-                            ),
+                          Icon(
+                            Icons.play_circle_fill,
+                            color: Colors.white,
+                            size: 40,
                           ),
                         ],
                       ),
@@ -103,25 +92,16 @@ class DownloadHeritageBox extends StatelessWidget {
                             maxLines: 1,
                           ),
                           SizedBox(height: 5),
-                          Row(
-                            children: [
-                              Icon(
-                                Icons.location_on,
-                                size: 17,
-                                color: colorPallet.light_green,
+                          Container(
+                            child: Text(
+                              detail.content,
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: Color(0xffC3C3C3),
                               ),
-                              SizedBox(width: 5), // 아이콘과 텍스트 사이에 약간의 간격 추가
-                              Expanded(
-                                child: Text(
-                                  detail.ccbaLcad,
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    color: Color(0xffC3C3C3),
-                                  ),
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ),
-                            ],
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 3,
+                            ),
                           ),
                         ],
                       ),
