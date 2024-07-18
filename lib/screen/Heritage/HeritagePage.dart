@@ -75,6 +75,7 @@ class _HeritagePageState extends State<HeritagePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Stack(
         children: [
           NaverMap(
@@ -114,7 +115,7 @@ class _HeritagePageState extends State<HeritagePage> {
                     child: TextField(
                       cursorColor: Color(0xff729493),
                       decoration: InputDecoration(
-                        hintText: '문화재명, 키워드, 지역 검색',
+                        hintText: '문화재를 입력하세요',
                         hintStyle: TextStyle(
                           color: Color(0xffCACACA),
                           fontSize: 18,

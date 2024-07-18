@@ -26,8 +26,10 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text('마이도슨트'),
+        backgroundColor: Colors.white,
       ),
       body: Padding(
           padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
