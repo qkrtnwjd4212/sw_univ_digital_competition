@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
-import '../screen/MyPage.dart';
+import '../screen/mypage/MyPage.dart';
 import 'color_pallet.dart';
 
 

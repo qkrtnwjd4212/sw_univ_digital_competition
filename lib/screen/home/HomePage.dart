@@ -30,8 +30,12 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('마이도슨트'),
+        automaticallyImplyLeading: false,
+        title: Text('마이도슨트', style: TextStyle(
+          fontWeight: FontWeight.w600,
+        ),),
         backgroundColor: Colors.white,
+        centerTitle: true,
       ),
       body: Padding(
           padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
@@ -40,7 +44,7 @@ class _HomePageState extends State<HomePage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                CustomBox(title: '맞춤 문화재', names: [
+                CustomBox(title: '전주은님을 위한 맞춤 문화재', names: [
                   '경회루',
                   '덕수궁',
                   '근정전'

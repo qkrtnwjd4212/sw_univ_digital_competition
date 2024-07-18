@@ -64,7 +64,7 @@ class HeritageBox extends StatelessWidget {
                             )
                                 : Container(
                               width: width * 0.25,
-                              height: 80,
+                              height: 90,
                               color: Colors.grey[300],
                             ),
                           ),

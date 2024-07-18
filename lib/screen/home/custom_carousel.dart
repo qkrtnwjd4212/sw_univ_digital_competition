@@ -11,15 +11,17 @@ class CustomBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(13.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(
               title,
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.w500),
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 10),
             _ImgBox(names: names, imgUrl: imgSrc)
           ],
         ));
