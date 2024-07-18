@@ -1,36 +1,52 @@
+import 'package:docent/commons/BottomBar.dart';
 import 'package:docent/commons/color_pallet.dart';
+import 'package:docent/screen/docent_chat/play_explanation.dart';
 import 'package:flutter/material.dart';
 
-class CulturalHeritageScreen extends StatelessWidget {
+class GenerateExplanationScreen extends StatefulWidget {
+  @override
+  _GenerateExplanationScreenState createState() => _GenerateExplanationScreenState();
+}
+
+class _GenerateExplanationScreenState extends State<GenerateExplanationScreen> {
+  var heritage_name = "경복궁";
+  var tags = ["이야기 중심", "건축학적"];
+  final TextEditingController tagController = TextEditingController();
+
+  void addTag(String tag) {
+    setState(() {
+      tags.add(tag);
+    });
+    tagController.clear();
+  }
+
   @override
   Widget build(BuildContext context) {
     ColorPallet colorPallet = ColorPallet();
     final double height = MediaQuery.of(context).size.height;
     final double width = MediaQuery.of(context).size.width;
-    var heritage_name = "낙화암";
-    var tags = ["이야기 중심", "건축학적"];
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-            // Handle back button action
           },
         ),
-        title: Text('선택된 문화재',
+        title: Text(
+          '선택된 문화재',
           style: TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.bold,
           ),
         ),
       ),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            Image.network(
-              'https://example.com/your_image.jpg', // Replace with your image URL
-              height: 200,
+            Image.asset(
+              "lib/assets/images/dummy_1.jpg",
+              height: 150,
               fit: BoxFit.cover,
             ),
             SizedBox(height: 16),
@@ -39,32 +55,45 @@ class CulturalHeritageScreen extends StatelessWidget {
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 16),
-            Text('어떤 스타일의 이야기가 듣고 싶나요?',
+            Text(
+              '어떤 스타일의 이야기가 듣고 싶나요?',
               style: TextStyle(
                 fontSize: 20,
               ),
             ),
             SizedBox(height: 8),
-            TextField(
-              decoration: InputDecoration(
-                hintText: '예) 사건사고',
-              ),
+            Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: tagController,
+                    decoration: InputDecoration(
+                      hintText: '예) 사건사고',
+                    ),
+                  ),
+                ),
+                IconButton(
+                  icon: Icon(Icons.add),
+                  onPressed: () {
+                    if (tagController.text.isNotEmpty) {
+                      addTag(tagController.text);
+                    }
+                  },
+                ),
+              ],
             ),
             SizedBox(height: 8),
             Wrap(
               spacing: 8.0,
-              children: [
-                Chip(
-                  label: Text('# ${tags[0]}'),
-                ),
-                Chip(
-                  label: Text('# ${tags[1]}'),
-                ),
-              ],
+              children: tags.map((tag) {
+                return Chip(
+                  label: Text('# $tag'),
+                );
+              }).toList(),
             ),
             SizedBox(height: 16),
             Container(
-              width: width*0.8,
+              width: width * 0.8,
               child: DropdownButton<String>(
                 value: '한국어',
                 items: <String>['한국어', '영어'].map((String value) {
@@ -73,32 +102,33 @@ class CulturalHeritageScreen extends StatelessWidget {
                     child: Text(value),
                   );
                 }).toList(),
-                onChanged: (_) {
-                  // Handle language change
-                },
+                onChanged: (_) {},
               ),
             ),
             SizedBox(height: 16),
             TextButton(
               onPressed: () {
-                // Handle button press
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => PlayExplanationScreen()),
+                );
               },
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(colorPallet.deep_green),
-                shape: MaterialStateProperty.all(
+                backgroundColor: WidgetStateProperty.all(colorPallet.deep_green),
+                shape: WidgetStateProperty.all(
                   RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8.0), // 여기서 보더의 radius를 설정합니다.
+                    borderRadius: BorderRadius.circular(8.0),
                   ),
                 ),
               ),
               child: Container(
-                width: width*0.8,
-                height: height*0.05,
-                alignment: Alignment.center, // 텍스트가 가운데 정렬되도록 설정합니다.
+                width: width * 0.8,
+                height: height * 0.05,
+                alignment: Alignment.center,
                 child: Text(
                   '해설 생성하기',
                   style: TextStyle(
-                    color: colorPallet.beige,
+                    color: Colors.white,
                   ),
                 ),
               ),
@@ -106,23 +136,9 @@ class CulturalHeritageScreen extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: [
-          BottomNavigationBarItem(
-            icon: ImageIcon(AssetImage('lib/assets/icons/home.png')),
-            label: '홈',
-          ),
-          BottomNavigationBarItem(
-            icon: ImageIcon(AssetImage('lib/assets/icons/culture.png')),
-            label: '문화재',
-          ),
-          BottomNavigationBarItem(
-            icon: ImageIcon(
-                AssetImage('lib/assets/icons/mypage.png')
-            ),
-            label: '마이',
-          ),
-        ],
+      bottomNavigationBar: BottomBar(
+        onTap: (p0) {},
+        currentIndex: 1,
       ),
     );
   }
