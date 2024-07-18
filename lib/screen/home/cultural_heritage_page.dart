@@ -16,7 +16,11 @@ class CulturalHeritagePage extends StatelessWidget {
             Navigator.pop(context);
           },
         ),
-        title: Text(title),
+        title: Text(title,
+        style: TextStyle(
+          fontSize: 22,
+          fontWeight: FontWeight.w500
+        ),),
       ),
       body: ListView(
         children: [

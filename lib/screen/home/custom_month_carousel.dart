@@ -20,7 +20,7 @@ class CustomMonthBox extends StatelessWidget {
           children: [
             Text(
               title,
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
             ),
             SizedBox(height: 20),
             GestureDetector( // GestureDetector 추가
