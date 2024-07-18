@@ -142,15 +142,31 @@ class _PlayExplanationScreenState extends State<PlayExplanationScreen> {
                 ),
               ),
             ),
-            SizedBox(height: 8),
+            SizedBox(height: 20),
             Wrap(
               spacing: 8.0,
               children: [
                 Chip(
-                  label: Text('# 이야기 중심'),
+                  backgroundColor: colorPallet.light_green,
+                  label: Text('# 이야기 중심', style: TextStyle(color: Colors.white)),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0), // 둥글기의 정도를 설정
+                    side: BorderSide(
+                      color: colorPallet.light_green, // 외곽선 색상을 colorPallet.light_green으로 설정
+                      width: 1.0,
+                    ),
+                  ),
                 ),
                 Chip(
-                  label: Text('# 건축학적'),
+                  backgroundColor: colorPallet.light_green,
+                  label: Text('# 건축학적', style: TextStyle(color: Colors.white)),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0), // 둥글기의 정도를 설정
+                    side: BorderSide(
+                      color: colorPallet.light_green, // 외곽선 색상을 colorPallet.light_green으로 설정
+                      width: 1.0,
+                    ),
+                  ),
                 ),
               ],
             ),

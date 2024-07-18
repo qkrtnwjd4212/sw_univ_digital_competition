@@ -210,6 +210,7 @@ class _HeritageListPageState extends State<HeritageListPage> {
                           contentPadding: EdgeInsets.fromLTRB(10, 10, 5, 10),
                       ),
                       isExpanded: true,
+                      dropdownColor: Colors.white,
                       value: _selectedRegion ?? '',
                       items: _regions.entries.map((entry) {
                         return DropdownMenuItem<String>(
@@ -245,6 +246,7 @@ class _HeritageListPageState extends State<HeritageListPage> {
 
                       ),
                       value: _selectedCategory ?? '',
+                      dropdownColor: Colors.white,
                       hint: Text('분류'),
                       items: _categories.entries.map((entry) {
                         return DropdownMenuItem<String>(

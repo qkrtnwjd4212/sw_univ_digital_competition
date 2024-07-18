@@ -68,11 +68,15 @@ class _GenerateExplanationScreenState extends State<GenerateExplanationScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  width: width * 0.7,
+                  width: width * 0.67,
                   child: TextField(
                     controller: tagController,
+                    cursorColor: colorPallet.light_green, // 커서 색깔 설정
                     decoration: InputDecoration(
                       hintText: '예) 사건사고',
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: colorPallet.light_green, width: 2.0,), // 포커스 시 언더라인 색깔 설정
+                      ),
                     ),
                   ),
                 ),
@@ -86,12 +90,23 @@ class _GenerateExplanationScreenState extends State<GenerateExplanationScreen> {
                 ),
               ],
             ),
-            SizedBox(height: 8),
+            SizedBox(height: 20),
             Wrap(
               spacing: 8.0,
               children: tags.map((tag) {
                 return Chip(
-                  label: Text('# $tag'),
+                  backgroundColor: colorPallet.light_green,
+                  label: Text(
+                    '# $tag',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0), // 둥글기의 정도를 설정
+                    side: BorderSide(
+                      color: colorPallet.light_green, // 외곽선 색상을 colorPallet.light_green으로 설정
+                      width: 1.0,
+                    ),
+                  ),
                 );
               }).toList(),
             ),

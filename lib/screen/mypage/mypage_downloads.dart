@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../commons/BottomBar.dart';
+import '../../commons/BottomBar.dart';
 import '../../services/info_service.dart';
 import '../../model/info_model.dart';
-import '../commons/DownloadHeritageBox.dart';
+import '../../commons/DownloadHeritageBox.dart';
 
 class MyDownnloads extends StatefulWidget {
   const MyDownnloads({super.key});
@@ -39,18 +39,10 @@ class _MyDownnloadsState extends State<MyDownnloads> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: Row(
-          children: [
-            GestureDetector(
-              onTap: () {
-                // 뒤로가기
-              },
-              child: Icon(Icons.arrow_back_ios, color: Colors.black),
-            ),
-            SizedBox(width: 8),
-            Text('다운로드한 컨텐츠', style: TextStyle(color: Colors.black)),
-          ],
-        )
+        title: Text('다운로드한 컨텐츠', style: TextStyle(
+            fontSize: 22,
+            fontWeight: FontWeight.w600
+        ),),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -70,7 +62,7 @@ class _MyDownnloadsState extends State<MyDownnloads> {
                   children: [
                     DownloadHeritageBox(
                       img: 'lib/assets/images/근정전.jpg',
-                      name: '근정전',
+                      name: '경복궁 근정전',
                       info: info1,
                     ),
                     FutureBuilder<Info>(
@@ -102,7 +94,7 @@ class _MyDownnloadsState extends State<MyDownnloads> {
                         final info3 = snapshot.data!; // '경회루' 정보 저장
                         return DownloadHeritageBox(
                           img: 'lib/assets/images/경회루.jpg',
-                          name: '경회루',
+                          name: '경복궁 경회루',
                           info: info3, // '경회루' 정보 전달
                         );
                       },
