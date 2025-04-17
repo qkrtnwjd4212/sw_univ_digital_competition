@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "27349470592",
+    "firebase_url": "https://mydocent-ec622-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "mydocent-ec622",
+    "storage_bucket": "mydocent-ec622.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:27349470592:android:067c6f0d71ab118ce48565",
+        "android_client_info": {
+          "package_name": "com.example.docent"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "27349470592-98iejrvmu5i9n0m40p2s4mkjdu29vk39.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.docent",
+            "certificate_hash": "3c2f822f460ab62da312f24e3cd9d8af95c8fb0a"
+          }
+        },
+        {
+          "client_id": "27349470592-pubca0jr67e8ak2dgslb12qflfva6176.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSrQa6hdvMw5lncE3cURXzUxpHkDYIIqE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "27349470592-pubca0jr67e8ak2dgslb12qflfva6176.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "27349470592-09v8r8lni83rjqmg2hjntb86pltfkvhe.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.docent"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
